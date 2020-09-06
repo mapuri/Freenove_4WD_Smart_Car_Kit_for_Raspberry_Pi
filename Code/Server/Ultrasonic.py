@@ -34,26 +34,37 @@ class Ultrasonic:
         distance_cm=sorted(distance_cm)
         return int(distance_cm[2])
     def run_motor(self,L,M,R):
+        print("L:", L, "M:", M, "R:", R)
         if (L < 30 and M < 30 and R <30) or M < 30 :
+            print("0: going back")
             self.PWM.setMotorModel(-1450,-1450,-1450,-1450) 
             time.sleep(0.1)   
             if L < R:
+                print("0: going right")
                 self.PWM.setMotorModel(1450,1450,-1450,-1450)
             else :
+                print("0: going left")
                 self.PWM.setMotorModel(-1450,-1450,1450,1450)
         elif L < 30 and M < 30:
+            print("1: going right")
             PWM.setMotorModel(1500,1500,-1500,-1500)
         elif R < 30 and M < 30:
+            print("2: going left")
             PWM.setMotorModel(-1500,-1500,1500,1500)
         elif L < 20 :
+            print("3: going right")
             PWM.setMotorModel(2000,2000,-500,-500)
             if L < 10 :
+                print("3.1: going right")
                 PWM.setMotorModel(1500,1500,-1000,-1000)
         elif R < 20 :
+            print("4: going left")
             PWM.setMotorModel(-500,-500,2000,2000)
             if R < 10 :
+                print("4.1: going left")
                 PWM.setMotorModel(-1500,-1500,1500,1500)
         else :
+            print("5: going straight")
             self.PWM.setMotorModel(600,600,600,600)
                 
     def run(self):
@@ -68,8 +79,9 @@ class Ultrasonic:
                     M = self.get_distance()
                 else:
                     R = self.get_distance()
+        self.run_motor(L,M,R)
         while True:
-            for i in range(90,30,-60):
+            for i in range(150,29,-60):
                 self.pwm_S.setServoPwm('0',i)
                 time.sleep(0.2)
                 if i==30:
@@ -78,7 +90,7 @@ class Ultrasonic:
                     M = self.get_distance()
                 else:
                     R = self.get_distance()
-                self.run_motor(L,M,R)
+            self.run_motor(L,M,R)
             for i in range(30,151,60):
                 self.pwm_S.setServoPwm('0',i)
                 time.sleep(0.2)
@@ -88,7 +100,7 @@ class Ultrasonic:
                     M = self.get_distance()
                 else:
                     R = self.get_distance()
-                self.run_motor(L,M,R)
+            self.run_motor(L,M,R)
         
             
         

@@ -575,7 +575,7 @@ class mywindow(QMainWindow,Ui_Client):
                         self.Ultrasonic.setText('Obstruction:%s cm'%Massage[1])
                     elif cmd.CMD_LIGHT in Massage:
                         self.Light.setText("Left:"+Massage[1]+'V'+' '+"Right:"+Massage[2]+'V')
-                    elif cmd. CMD_POWER in Massage:
+                    elif cmd.CMD_POWER in Massage:
                         percent_power=int((float(Massage[1])-7)/1.40*100)
                         self.progress_Power.setValue(percent_power) 
     def is_valid_jpg(self,jpg_file):
